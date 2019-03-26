@@ -1,11 +1,6 @@
+"use strict";
+
 console.log("Runnning");
-
-var template = React.createElement("p", {
-    id: "id",
-    class: "class"
-  }, "New JSX component");
-
-
-const appRoot = document.getElementById('app');
-
+var template = React.createElement("p", null, "this is a new elemnt");
+var appRoot = document.getElementById('app');
 ReactDOM.render(template, appRoot);
