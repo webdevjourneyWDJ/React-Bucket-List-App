@@ -1,61 +1,106 @@
-console.log("Runnning");
+class BucketListApp extends React.Component {
+    render() {
 
-const app = {
-    title: "The Bucket List",
-    subtitle: "Make a computer decide your way of life!",
-    options: []
-};
+        const title = "Bucket List App";
+        const subtitle = "Make a computer decide your way of life!";
+        const options = ["one", "two", "three"];
 
-const onFormSubmit = (e) => {
-    e.preventDefault();
-
-    const option = e.target.elements.option.value;
-
-    if(option){
-        app.options.push(option);
-        e.target.elements.option.value = "";
-        render();
+        return (
+            <div>
+                <Header title={title} subtitle={subtitle}/>
+                <Action />
+                <Options options={options}/>
+                <AddOption />
+            </div>
+        )
     }
-};
-
-
-const onRemoveAll = () => {
-    app.options = [];
-    render();
-}
-
-const onRandomDecision = () => {
-  const ranNum = Math.floor(Math.random() * app.options.length);
-  const option = app.options[ranNum];
-  alert(option);
 }
 
 
-const appRoot = document.getElementById('app');
 
-const render = () => {
-    const template = (
-        <div>
-            <h1>{app.title}</h1>
-            {app.subtitle && <p>{app.subtitle}</p>}
-            <p>{app.options.length > 0 ? "Here are yout options:" : "No options"}</p>
-            <button disabled={app.options.length === 0} onClick={onRandomDecision}>What should i do?</button>
-            <button onClick={onRemoveAll}>Remove All</button>
-            <ol>
+class Header extends React.Component {
+    render() {
+        return (
+            <div>
+                <h1>{this.props.title}</h1>
+                <h2>{this.props.subtitle}</h2>
+            </div>
+        )
+    }
+}
+
+class Action extends React.Component {
+    handlePick() {
+        alert('handlePick')
+    }
+
+    render() {
+        return (
+            <div>
+                <button onClick={this.handlePick}>What should I do?</button>
+            </div>
+        )
+    }
+}
+
+class Options extends React.Component {
+    constructor(props){
+        super(props);
+        this.handleRemoveAll = this.handleRemoveAll.bind(this);
+    }
+    
+    handleRemoveAll() {
+        console.log(this.props.options);
+        // alert('handleRemoveALl')
+    }
+
+    render() {
+        return (
+            <div>
+            <button onClick={this.handleRemoveAll}>Remove All</button>
                 {
-                    app.options.map((option, index) => {
-                        return <li key={index}>{option}</li>;
-                    })
+                   this.props.options.map((option, index) => <Option key={index} optionText={option} />) 
                 }
-            </ol>
-            <form onSubmit={onFormSubmit}>
-                <input type="text" name="option" />
+            </div>
+        )
+    }
+}
+
+class Option extends React.Component {
+    render() {
+        return (
+            <div>
+                {this.props.optionText}
+            </div>
+        )
+    }
+}
+
+class AddOption extends React.Component {
+    handleAddOption(e){
+        e.preventDefault();
+
+        const option = e.target.elements.option.value.trim();
+
+        if(option){
+            alert(option)
+        }
+    }
+
+    render() {
+        return (
+            <div>
+                <form onSubmit={this.handleAddOption}>
+                <input type="text" name="option"/>
                 <button>Add Option</button>
-            </form>
-        </div>
-    );
+                </form>
+            </div>
+        )
+    }
+}
 
-    ReactDOM.render(template, appRoot);
-};
+ReactDOM.render(<BucketListApp />, document.getElementById('app'));
 
-render();
+
+
+
