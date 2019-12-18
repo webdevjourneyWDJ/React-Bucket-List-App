@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "build": "babel src/app.js --out-file public/scripts/app.js --watch",
-    "fun": "babel src/fun/toggle.js --out-file public/scripts/app.js --watch"
+    "fun": "babel src/fun/counter.js --out-file public/scripts/app.js --watch"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
