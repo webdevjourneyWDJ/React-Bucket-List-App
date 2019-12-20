@@ -33,7 +33,7 @@ function (_React$Component) {
     _this.handlePick = _this.handlePick.bind(_assertThisInitialized(_this));
     _this.handleAddOption = _this.handleAddOption.bind(_assertThisInitialized(_this));
     _this.state = {
-      options: []
+      options: props.options
     };
     return _this;
   }
@@ -72,10 +72,8 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var title = "Bucket List App";
       var subtitle = "Make a computer decide your way of life!";
       return React.createElement("div", null, React.createElement(Header, {
-        title: title,
         subtitle: subtitle
       }), React.createElement(Action, {
         hasOptions: this.state.options.length > 0,
@@ -92,104 +90,44 @@ function (_React$Component) {
   return BucketListApp;
 }(React.Component);
 
-var Header =
-/*#__PURE__*/
-function (_React$Component2) {
-  _inherits(Header, _React$Component2);
+BucketListApp.defaultProps = {
+  options: []
+};
 
-  function Header() {
-    _classCallCheck(this, Header);
+var Header = function Header(props) {
+  return React.createElement("div", null, React.createElement("h1", null, props.title), props.subtitle && React.createElement("h2", null, props.subtitle));
+};
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Header).apply(this, arguments));
-  }
+Header.defaultProps = {
+  title: 'Bucket List App'
+};
 
-  _createClass(Header, [{
-    key: "render",
-    value: function render() {
-      return React.createElement("div", null, React.createElement("h1", null, this.props.title), React.createElement("h2", null, this.props.subtitle));
-    }
-  }]);
+var Action = function Action(props) {
+  return React.createElement("div", null, React.createElement("button", {
+    onClick: props.handlePick,
+    disabled: !props.hasOptions
+  }, "What should I do?"));
+};
 
-  return Header;
-}(React.Component);
+var Options = function Options(props) {
+  return React.createElement("div", null, React.createElement("button", {
+    onClick: props.handleDeleteOptions
+  }, "Remove All"), props.options.map(function (option, index) {
+    return React.createElement(Option, {
+      key: index,
+      optionText: option
+    });
+  }));
+};
 
-var Action =
-/*#__PURE__*/
-function (_React$Component3) {
-  _inherits(Action, _React$Component3);
-
-  function Action() {
-    _classCallCheck(this, Action);
-
-    return _possibleConstructorReturn(this, _getPrototypeOf(Action).apply(this, arguments));
-  }
-
-  _createClass(Action, [{
-    key: "render",
-    value: function render() {
-      return React.createElement("div", null, React.createElement("button", {
-        onClick: this.props.handlePick,
-        disabled: !this.props.hasOptions
-      }, "What should I do?"));
-    }
-  }]);
-
-  return Action;
-}(React.Component);
-
-var Options =
-/*#__PURE__*/
-function (_React$Component4) {
-  _inherits(Options, _React$Component4);
-
-  function Options() {
-    _classCallCheck(this, Options);
-
-    return _possibleConstructorReturn(this, _getPrototypeOf(Options).apply(this, arguments));
-  }
-
-  _createClass(Options, [{
-    key: "render",
-    value: function render() {
-      return React.createElement("div", null, React.createElement("button", {
-        onClick: this.props.handleDeleteOptions
-      }, "Remove All"), this.props.options.map(function (option, index) {
-        return React.createElement(Option, {
-          key: index,
-          optionText: option
-        });
-      }));
-    }
-  }]);
-
-  return Options;
-}(React.Component);
-
-var Option =
-/*#__PURE__*/
-function (_React$Component5) {
-  _inherits(Option, _React$Component5);
-
-  function Option() {
-    _classCallCheck(this, Option);
-
-    return _possibleConstructorReturn(this, _getPrototypeOf(Option).apply(this, arguments));
-  }
-
-  _createClass(Option, [{
-    key: "render",
-    value: function render() {
-      return React.createElement("div", null, this.props.optionText);
-    }
-  }]);
-
-  return Option;
-}(React.Component);
+var Option = function Option(props) {
+  return React.createElement("div", null, props.optionText);
+};
 
 var AddOption =
 /*#__PURE__*/
-function (_React$Component6) {
-  _inherits(AddOption, _React$Component6);
+function (_React$Component2) {
+  _inherits(AddOption, _React$Component2);
 
   function AddOption(props) {
     var _this2;
@@ -231,4 +169,6 @@ function (_React$Component6) {
   return AddOption;
 }(React.Component);
 
-ReactDOM.render(React.createElement(BucketListApp, null), document.getElementById('app'));
+ReactDOM.render(React.createElement(BucketListApp, {
+  options: ['red light district', 'go to japan']
+}), document.getElementById('app'));
