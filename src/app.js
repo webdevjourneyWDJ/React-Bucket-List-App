@@ -1,3 +1,6 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+
 class BucketListApp extends React.Component {
     constructor(props){
         super(props);
@@ -173,5 +176,6 @@ class AddOption extends React.Component {
 ReactDOM.render(<BucketListApp options={['red light district', 'go to japan']}/>, document.getElementById('app'));
 
 
+// console.log("running from app.js in src folder");
 
 
