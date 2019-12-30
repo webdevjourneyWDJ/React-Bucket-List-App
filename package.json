@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "build-babel": "babel src/app.js --out-file public/scripts/app.js --watch",
-    "build": "webpack",
+    "build": "webpack --watch",
     "fun": "babel src/fun/counter.js --out-file public/scripts/app.js --watch"
   },
   "devDependencies": {
