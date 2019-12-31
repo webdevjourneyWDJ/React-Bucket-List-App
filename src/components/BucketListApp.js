@@ -5,15 +5,8 @@ import Action from './Action'
 import Options from './Options'
 
 export default class BucketListApp extends React.Component {
-    constructor(props){
-        super(props);
-        this.handleDeleteOptions = this.handleDeleteOptions.bind(this);
-        this.handlePick = this.handlePick.bind(this);
-        this.handleAddOption = this.handleAddOption.bind(this);
-        this.handleDeleteOption = this.handleDeleteOption.bind(this);
-        this.state = {
-            options: props.options
-        }
+    state = {
+        options: []
     }
 
     componentDidMount() { 
@@ -38,11 +31,11 @@ export default class BucketListApp extends React.Component {
         console.log("componentWillUnmount");        
     }
 
-    handleDeleteOptions() {
+    handleDeleteOptions = () => {
         this.setState(() => ({options: []}))
     }
 
-    handleDeleteOption(optionToRemove){
+    handleDeleteOption = (optionToRemove) => {
         this.setState((prevState) => {
             return {
                 options: prevState.options.filter((option) => optionToRemove !== option)
@@ -50,13 +43,13 @@ export default class BucketListApp extends React.Component {
         })      
     }
 
-    handlePick() {
+    handlePick = () =>{
         const randNum = Math.floor(Math.random() * this.state.options.length);
         const option = this.state.options[randNum]; 
         alert(option)
     }
 
-    handleAddOption(option) {
+    handleAddOption = (option) => {
         if(!option){
             return 'Enter an actual string';
         }else if(this.state.options.indexOf(option) > -1){
