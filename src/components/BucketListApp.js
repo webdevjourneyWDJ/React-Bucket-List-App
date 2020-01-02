@@ -3,10 +3,12 @@ import AddOption from './Addoption'
 import Header from './Header'
 import Action from './Action'
 import Options from './Options'
+import OptionModal from './OptionModal'
 
 export default class BucketListApp extends React.Component {
     state = {
-        options: []
+        options: [],
+        isSelected: undefined
     }
 
     componentDidMount() { 
@@ -35,6 +37,12 @@ export default class BucketListApp extends React.Component {
         this.setState(() => ({options: []}))
     }
 
+    handleClearIsSelected = () => {
+        this.setState(() => ({
+            isSelected: undefined
+        }))
+    }
+
     handleDeleteOption = (optionToRemove) => {
         this.setState((prevState) => {
             return {
@@ -46,7 +54,9 @@ export default class BucketListApp extends React.Component {
     handlePick = () =>{
         const randNum = Math.floor(Math.random() * this.state.options.length);
         const option = this.state.options[randNum]; 
-        alert(option)
+        this.setState(() => ({
+            isSelected: option
+        }))
     }
 
     handleAddOption = (option) => {
@@ -74,6 +84,9 @@ export default class BucketListApp extends React.Component {
                     handleDeleteOption={this.handleDeleteOption} 
                 />
                 <AddOption handleAddOption={this.handleAddOption}/>
+                <OptionModal 
+                    isSelected={this.state.isSelected}
+                    handleClearIsSelected={this.handleClearIsSelected}/>
             </div>
         )
     }
